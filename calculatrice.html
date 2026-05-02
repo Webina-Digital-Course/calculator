@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Calculatrice</title>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial;
+        background: #f0f0f0;
+    }
+
+    .calc {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        width: 220px;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    #screen {
+        width: 100%;
+        height: 40px;
+        text-align: right;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+    }
+
+    button {
+        height: 45px;
+        cursor: pointer;
+        border: none;
+        background: #eee;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background: #ddd;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="calc">
+    <input id="screen" disabled>
+
+    <div class="buttons">
+        <button data-value="7">7</button>
+        <button data-value="8">8</button>
+        <button data-value="9">9</button>
+        <button data-value="+">+</button>
+
+        <button data-value="4">4</button>
+        <button data-value="5">5</button>
+        <button data-value="6">6</button>
+        <button data-value="-">-</button>
+
+        <button data-value="1">1</button>
+        <button data-value="2">2</button>
+        <button data-value="3">3</button>
+        <button data-action="equal">=</button>
+
+        <button data-action="clear">C</button>
+        <button data-value="0">0</button>
+        <button data-value=".">.</button>
+        <button data-value="*">x</button>
+    </div>
+</div>
+
+<script>
+    let screen = document.getElementById("screen");
+    let buttons = document.querySelectorAll("button");
+
+    buttons.forEach(btn => {
+        btn.onclick = function () {
+
+            let value = btn.getAttribute("data-value");
+            let action = btn.getAttribute("data-action");
+
+            if (action === "clear") {
+                screen.value = "";
+            } 
+            else if (action === "equal") {
+                try {
+                    screen.value = eval(screen.value);
+                } catch {
+                    screen.value = "Error";
+                }
+            } 
+            else {
+                screen.value += value;
+            }
+
+        }
+    });
+</script>
+
+</body>
+</html>
